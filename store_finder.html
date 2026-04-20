@@ -20,7 +20,7 @@
   </style>
 </head>
 <body>
-  <h2>SMRT Store Finder (Web)</h2>
+  <h2>SMRT Technologies Store map and Route Tracking</h2>
   <div class="card">
     <label for="cat-select">Category</label>
     <select id="cat-select" disabled>
@@ -43,7 +43,7 @@
     <button id="find-btn" onclick="triggerFind()" disabled>Find My Route</button>
     <div id="status">Loading runtime...</div>
     <div class="small">
-      Requires files in this same folder: <code>Store_Mapping_with_Color_Variable_FIXEDold.xlsx</code> and optional <code>map_file.png</code>.
+      <!--Requires files in this same folder: <code>Store_Mapping_with_Color_Variable_FIXEDold.xlsx</code> and optional <code>map_file.png</code>.-->
     </div>
   </div>
 
@@ -449,6 +449,7 @@ asyncio.ensure_future(bootstrap())
     const CELL = 16;
     const ROWS = 41;
     const COLS = 41;
+    const Y_SHIFT_CELLS = -1;
 
     function renderPath(pathJson, startJson, itemName, entranceName, steps) {
       const path = JSON.parse(pathJson);
@@ -469,9 +470,9 @@ asyncio.ensure_future(bootstrap())
 
         if (path.length > 1) {
           ctx.beginPath();
-          ctx.moveTo(path[0][1] * CELL + CELL / 2, path[0][0] * CELL + CELL / 2);
+          ctx.moveTo(path[0][1] * CELL + CELL / 2, (path[0][0] - Y_SHIFT_CELLS) * CELL + CELL / 2);
           for (let i = 1; i < path.length; i++) {
-            ctx.lineTo(path[i][1] * CELL + CELL / 2, path[i][0] * CELL + CELL / 2);
+            ctx.lineTo(path[i][1] * CELL + CELL / 2, (path[i][0] - Y_SHIFT_CELLS) * CELL + CELL / 2);
           }
           ctx.strokeStyle = "#00b5ff";
           ctx.lineWidth = 3;
@@ -481,13 +482,13 @@ asyncio.ensure_future(bootstrap())
         }
 
         ctx.beginPath();
-        ctx.arc(start[1] * CELL + CELL / 2, start[0] * CELL + CELL / 2, CELL * 0.45, 0, Math.PI * 2);
+        ctx.arc(start[1] * CELL + CELL / 2, (start[0] - Y_SHIFT_CELLS) * CELL + CELL / 2, CELL * 0.45, 0, Math.PI * 2);
         ctx.fillStyle = "#c4c70c";
         ctx.fill();
 
         const end = path[path.length - 1];
         ctx.beginPath();
-        ctx.arc(end[1] * CELL + CELL / 2, end[0] * CELL + CELL / 2, CELL * 0.45, 0, Math.PI * 2);
+        ctx.arc(end[1] * CELL + CELL / 2, (end[0] - Y_SHIFT_CELLS) * CELL + CELL / 2, CELL * 0.45, 0, Math.PI * 2);
         ctx.fillStyle = "#ff4f6d";
         ctx.fill();
       };
