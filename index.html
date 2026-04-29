@@ -279,7 +279,7 @@ def receive_items(items_json):
         opt = js.document.createElement("option")
         opt.value = cat
         opt.textContent = cat
-        cat_sel.appendChild(opt
+        cat_sel.appendChild(opt)
     cat_sel.disabled = False
     js.document.getElementById("find-btn").disabled = False
     set_status(f"Ready. Loaded {len(_items_data)} items.")
